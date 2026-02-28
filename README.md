@@ -1,4 +1,4 @@
-## MCSManager fnOS Package
+## MCSManager fnOS Package (Root)
 
 Source code repository: [MCSManager Github](https://github.com/MCSManager/MCSManager)
 
