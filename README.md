@@ -16,7 +16,7 @@ Special thanks to the developer **@Flex_7746** for helping MCSManager complete t
 
 <br />
 
-## MCSManager 飞牛端
+## MCSManager 飞牛端 (Root)
 
 源代码仓库：[MCSManager Github](https://github.com/MCSManager/MCSManager)
 
