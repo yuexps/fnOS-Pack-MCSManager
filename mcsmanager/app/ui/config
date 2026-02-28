@@ -1,7 +1,7 @@
 {
   ".url": {
     "mcsmanager.Application": {
-      "title": "MCSManager 面板",
+      "title": "MCSManager",
       "icon": "images/icon_{0}.png",
       "type": "url",
       "protocol": "http",

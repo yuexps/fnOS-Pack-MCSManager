@@ -65,6 +65,10 @@ jobs:
             
             rm -rf temp mcs.tar.gz
             
+            # 3. 最终同步
+            sed -i "s/version=.*/version=$LATEST_VER/" mcsmanager/manifest
+            echo "FINAL_VER=$LATEST_VER" >> $GITHUB_ENV
+
             # Git 提交
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -72,23 +76,17 @@ jobs:
             git commit -m "chore: auto-update to v$LATEST_VER [skip ci]"
             git push
             
-            FINAL_VER=$LATEST_VER
             echo "update_needed=true" >> $GITHUB_OUTPUT
           else
             echo "当前已是最新版本"
-            FINAL_VER=$LOCAL_VER
             echo "update_needed=false" >> $GITHUB_OUTPUT
           fi
-
-          # 3. 最终同步
-          sed -i "s/version=.*/version=$FINAL_VER/" mcsmanager/manifest
-          echo "FINAL_VER=$FINAL_VER" >> $GITHUB_ENV
 
       - name: Build Package
         if: steps.sync_ver.outputs.update_needed == 'true'
         run: |
-          chmod +x ./build/fnpack-1.0.4-linux-amd64
-          ./build/fnpack-1.0.4-linux-amd64 build mcsmanager
+          chmod +x ./build/fnpack-1.2.1-linux-amd64
+          ./build/fnpack-1.2.1-linux-amd64 build mcsmanager
 
       - name: Create Release
         if: steps.sync_ver.outputs.update_needed == 'true'
@@ -98,7 +96,7 @@ jobs:
           name: v${{ env.FINAL_VER }}
           allowUpdates: true
           body: |
-            MCSManager 版本: ${{ env.FINAL_VER }}
+            MCSManager Web 版本: ${{ env.FINAL_VER }}
             [更新日志](https://github.com/MCSManager/MCSManager/releases/tag/v${{ env.FINAL_VER }})
           artifacts: "mcsmanager.fpk"
           token: ${{ secrets.GITHUB_TOKEN }}
